@@ -2,7 +2,7 @@
   <div *ngIf="!mobile" class="app flex flex-column">
     <app-navigation></app-navigation>
     <div class="app-content flex flex-column">
-      <app-invoice-modal></app-invoice-modal>
+      <app-invoice-modal *ngIf="invoiceModal$ | async"></app-invoice-modal>
       <router-outlet></router-outlet>
     </div>
   </div>

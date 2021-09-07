@@ -1,5 +1,7 @@
+import { LayoutStateService } from './../../services/layout-state.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-invoice-modal',
@@ -14,7 +16,12 @@ export class InvoiceModalComponent implements OnInit {
   dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
   loading = false;
 
-  constructor(private fb: FormBuilder) {}
+  invoiceModal$: Observable<boolean> = this.layoutState.$invoiceModal;
+
+  constructor(
+    private fb: FormBuilder,
+    private layoutState: LayoutStateService
+  ) {}
 
   ngOnInit(): void {
     this.createForm();
@@ -43,5 +50,9 @@ export class InvoiceModalComponent implements OnInit {
       invoiceDraft: null,
       invoiceTotal: 0,
     });
+  }
+
+  closeInvoice() {
+    this.layoutState.toggleInvoice();
   }
 }

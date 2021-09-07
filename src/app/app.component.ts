@@ -1,4 +1,6 @@
-import { AfterViewInit, Component, HostListener } from '@angular/core';
+import { LayoutStateService } from './services/layout-state.service';
+import { Component, HostListener } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +9,9 @@ import { AfterViewInit, Component, HostListener } from '@angular/core';
 })
 export class AppComponent {
   mobile: any = null;
+  invoiceModal$: Observable<boolean> = this.layoutState.$invoiceModal;
+
+  constructor(private layoutState: LayoutStateService) {}
 
   @HostListener('window:resize', [])
   private onResize() {

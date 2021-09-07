@@ -1,4 +1,6 @@
+import { LayoutStateService } from './../../services/layout-state.service';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -7,12 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   filterMenu = false;
+  invoiceModal$: Observable<boolean> = this.layoutState.$invoiceModal;
 
-  constructor() {}
+  constructor(private layoutState: LayoutStateService) {}
 
   ngOnInit(): void {}
 
-  newInvoice() {}
+  newInvoice() {
+    this.layoutState.toggleInvoice();
+  }
+
+  closeInvoice() {
+    this.layoutState.toggleInvoice();
+  }
 
   toggleFilterMenu() {
     this.filterMenu = !this.filterMenu;
