@@ -1,0 +1,159 @@
+<div class="invoice-wrap flex flex-column">
+  <form [formGroup]="invoiceForm" class="invoice-content">
+    <h1>New Invoice</h1>
+
+    <!-- Bill From -->
+    <div class="bill-from flex flex-column">
+      <h4>Bill From</h4>
+      <div class="input flex flex-column">
+        <label for="billerStreetAddress">Street Address</label>
+        <input
+          type="text"
+          id="billerStreetAddress"
+          formControlName="billerStreetAddress"
+          required
+        />
+      </div>
+
+      <div class="location-details flex">
+        <div class="input flex flex-column">
+          <label for="billerCity">City</label>
+          <input
+            type="text"
+            id="billerCity"
+            formControlName="billerCity"
+            required
+          />
+        </div>
+        <div class="input flex flex-column">
+          <label for="billerZipCode">Zip Code</label>
+          <input
+            type="text"
+            id="billerZipCode"
+            formControlName="billerZipCode"
+            required
+          />
+        </div>
+        <div class="input flex flex-column">
+          <label for="billerCountry">Country</label>
+          <input
+            type="text"
+            id="billerCountry"
+            formControlName="billerCountry"
+            required
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Bill To -->
+    <div class="bill-to flex flex-column">
+      <h4>Bill To</h4>
+      <div class="input flex flex-column">
+        <label for="clientName">Client's Name</label>
+        <input
+          type="text"
+          id="clientName"
+          formControlName="clientName"
+          required
+        />
+      </div>
+      <div class="input flex flex-column">
+        <label for="clientEmail">Client's Email</label>
+        <input
+          type="email"
+          id="clientEmail"
+          formControlName="clientEmail"
+          required
+        />
+      </div>
+      <div class="input flex flex-column">
+        <label for="clientStreetAddress">Street Address</label>
+        <input
+          type="text"
+          id="clientStreetAddress"
+          formControlName="clientStreetAddress"
+          required
+        />
+      </div>
+    </div>
+
+    <!-- Invoice Work Details -->
+    <div class="invoice-work flex flex-column">
+      <div class="payment flex">
+        <div class="input flex flex-column">
+          <label for="invoiceDate">Invoice Date</label>
+          <input type="text" id="invoiceDate" formControlName="invoiceDate" />
+        </div>
+        <div class="input flex flex-column">
+          <label for="paymentDueDate">Payment Due</label>
+          <input
+            type="text"
+            id="paymentDueDate"
+            formControlName="paymentDueDate"
+          />
+        </div>
+      </div>
+      <div class="input flex flex-column">
+        <label for="paymentTerms">Payment Terms</label>
+        <select
+          required
+          type="text"
+          id="paymentTerms"
+          formControlName="paymentTerms"
+        >
+          <option value="30">Net 30 days</option>
+          <option value="60">Net 60 days</option>
+        </select>
+      </div>
+      <div class="input flex flex-column">
+        <label for="productDescription">Product Description</label>
+        <input
+          type="text"
+          id="productDescription"
+          formControlName="productDescription"
+        />
+      </div>
+      <div class="work-items">
+        <h3>Item List</h3>
+        <table class="item-list">
+          <tr class="table-heading flex">
+            <th class="item-name">Item Name</th>
+            <th class="qty">Qty</th>
+            <th class="price">Price</th>
+            <th class="total">Total</th>
+          </tr>
+          <tr class="table-items flex">
+            <td class="item-name">
+              <input type="text" />
+            </td>
+            <td class="qty">
+              <input type="text" />
+            </td>
+            <td class="price">
+              <input type="text" />
+            </td>
+            <td class="total flex">$Total</td>
+            <img src="assets/icon-delete.svg" alt="" />
+          </tr>
+        </table>
+
+        <div class="flex button">
+          <img src="assets/icon-plus.svg" alt="" />
+          Add New Item
+        </div>
+      </div>
+    </div>
+
+    <!-- Save/Exit -->
+    <div class="save flex">
+      <div class="left">
+        <button type="button" class="red">Cancel</button>
+      </div>
+      <div class="right flex">
+        <button type="submit" class="dark-purple">Save Draft</button>
+        <button type="submit" class="purple">Create Invoice</button>
+      </div>
+    </div>
+  </form>
+</div>
