@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .app {
@@ -35,15 +35,15 @@
 }
 
 // animated invoice
-.invoice-enter-active,
-.invoice-leave-active {
-  transition: 0.8s ease all;
-}
+// .invoice-enter-active,
+// .invoice-leave-active {
+//   transition: 0.8s ease all;
+// }
 
-.invoice-enter-from,
-.invoice-leave-to {
-  transform: translateX(-700px);
-}
+// .invoice-enter-from,
+// .invoice-leave-to {
+//   transform: translateX(-700px);
+// }
 
 button,
 .button {
@@ -106,7 +106,7 @@ button,
 
 .status-button {
   &::before {
-    content: '';
+    content: "";
     width: 10px;
     height: 10px;
     border-radius: 50%;
