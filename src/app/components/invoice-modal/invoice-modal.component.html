@@ -124,22 +124,31 @@
             <th class="price">Price</th>
             <th class="total">Total</th>
           </tr>
-          <tr class="table-items flex">
-            <td class="item-name">
-              <input type="text" />
-            </td>
-            <td class="qty">
-              <input type="text" />
-            </td>
-            <td class="price">
-              <input type="text" />
-            </td>
-            <td class="total flex">$Total</td>
-            <img src="assets/icon-delete.svg" alt="" />
-          </tr>
+          <ng-container
+            formArrayName="invoiceItemList"
+            *ngFor="let item of myItems.controls; let i = index"
+          >
+            <tr class="table-items flex" [formGroupName]="i">
+              <td class="item-name">
+                <input type="text" formControlName="itemName" />
+              </td>
+              <td class="qty">
+                <input type="text" formControlName="qty" />
+              </td>
+              <td class="price">
+                <input type="text" formControlName="price" />
+              </td>
+              <td class="total flex">${{ item.value.total }}</td>
+              <img
+                (click)="deleteInvoiceItem(i)"
+                src="assets/icon-delete.svg"
+                alt=""
+              />
+            </tr>
+          </ng-container>
         </table>
 
-        <div class="flex button">
+        <div class="flex button" (click)="addNewInvoiceItem()">
           <img src="assets/icon-plus.svg" alt="" />
           Add New Item
         </div>

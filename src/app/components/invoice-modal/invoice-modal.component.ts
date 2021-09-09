@@ -1,17 +1,29 @@
 import { LayoutStateService } from './../../services/layout-state.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormArray,
+  AbstractControl,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
+import { uid } from 'uid';
 
+interface InvoiceItemList {
+  id: string;
+  itemName: string;
+  qty: string;
+  price: number;
+  total: number;
+}
 @Component({
   selector: 'app-invoice-modal',
   templateUrl: './invoice-modal.component.html',
   styleUrls: ['./invoice-modal.component.scss'],
 })
 export class InvoiceModalComponent implements OnInit {
-  // @ts-ignore
-  invoiceForm: FormGroup;
-  invoiceItemList = [];
+  invoiceForm!: FormGroup;
+  invoiceItemList!: FormArray;
   invoiceDateUnix = Date.now();
   paymentDueDateUnix = 0;
 
@@ -55,7 +67,19 @@ export class InvoiceModalComponent implements OnInit {
       productDescription: null,
       invoicePending: null,
       invoiceDraft: null,
+
+      invoiceItemList: this.fb.array([this.createItem()]),
       invoiceTotal: 0,
+    });
+  }
+
+  createItem(): FormGroup {
+    return this.fb.group({
+      id: uid(),
+      itemName: '',
+      qty: '',
+      price: 0,
+      total: 0,
     });
   }
 
@@ -79,5 +103,21 @@ export class InvoiceModalComponent implements OnInit {
         }
       ),
     });
+  }
+
+  addNewInvoiceItem(): void {
+    this.myItems.push(this.createItem());
+  }
+
+  deleteInvoiceItem(i: number) {
+    this.myItems.removeAt(i);
+  }
+
+  prt(item: any, i: number) {
+    console.log('Exposed item name:', this.myItems.controls[i].value.total);
+  }
+
+  get myItems() {
+    return <FormArray>this.invoiceForm.get('invoiceItemList');
   }
 }
