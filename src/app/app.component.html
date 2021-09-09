@@ -4,16 +4,11 @@
 
     <div class="app-content flex flex-column">
       <app-modal *ngIf="modalActive$ | async"></app-modal>
-      <div
-        [ngClass]="
-          (invoiceModal$ | async)
-            ? 'invoice-enter-from invoice-enter-active'
-            : 'invoice-leave-to invoice-leave-active'
-        "
-      >
-        <!-- TODO: reset form when toggle invoice. or use css to hide modal -->
-        <app-invoice-modal></app-invoice-modal>
-      </div>
+      <app-invoice-modal
+        @insertRemoveTrigger
+        *ngIf="invoiceModal$ | async"
+      ></app-invoice-modal>
+
       <router-outlet></router-outlet>
     </div>
   </div>
