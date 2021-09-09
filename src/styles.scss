@@ -10,6 +10,9 @@
 .app {
   background-color: #141625;
   min-height: 100vh;
+  max-width: 100vw;
+  overflow-x: hidden;
+
   @media (min-width: 900px) {
     flex-direction: row !important;
   }

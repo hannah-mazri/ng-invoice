@@ -1,0 +1,13 @@
+.invoice-enter-active,
+.invoice-leave-active {
+  transition: 0.8s ease all;
+}
+
+.invoice-enter-from {
+  left: 0;
+  transform: translateX(-110px);
+}
+
+.invoice-leave-to {
+  transform: translateX(-100%);
+}
