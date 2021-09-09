@@ -12,8 +12,9 @@ export class InvoiceModalComponent implements OnInit {
   // @ts-ignore
   invoiceForm: FormGroup;
   invoiceItemList = [];
+  invoiceDateUnix = Date.now();
+  paymentDueDateUnix = 0;
 
-  dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
   loading = false;
 
   invoiceModal$: Observable<boolean> = this.layoutState.$invoiceModal;
@@ -25,6 +26,14 @@ export class InvoiceModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+
+    this.invoiceForm.patchValue({
+      invoiceDate: new Date(this.invoiceDateUnix).toLocaleDateString('en-us', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      }),
+    });
   }
 
   createForm() {
@@ -40,10 +49,8 @@ export class InvoiceModalComponent implements OnInit {
       clientCity: null,
       clientZipCode: null,
       clientCountry: null,
-      invoiceDateUnix: null,
       invoiceDate: null,
       paymentTerms: null,
-      paymentDueDateUnix: null,
       paymentDueDate: null,
       productDescription: null,
       invoicePending: null,
@@ -54,5 +61,23 @@ export class InvoiceModalComponent implements OnInit {
 
   closeInvoice() {
     this.layoutState.toggleInvoice();
+  }
+
+  onOptionSelected(event: any) {
+    const futureDate = new Date();
+    this.paymentDueDateUnix = futureDate.setDate(
+      futureDate.getDate() + parseInt(event.target.value)
+    );
+
+    this.invoiceForm.patchValue({
+      paymentDueDate: new Date(this.paymentDueDateUnix).toLocaleDateString(
+        'en-us',
+        {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+        }
+      ),
+    });
   }
 }

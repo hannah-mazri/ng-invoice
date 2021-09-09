@@ -101,6 +101,7 @@
           type="text"
           id="paymentTerms"
           formControlName="paymentTerms"
+          (change)="onOptionSelected($event)"
         >
           <option value="30">Net 30 days</option>
           <option value="60">Net 60 days</option>
