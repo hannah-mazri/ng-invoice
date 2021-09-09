@@ -7,9 +7,10 @@ import { AppComponent } from './app.component';
 import { InvoiceModalComponent } from './components/invoice-modal/invoice-modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, InvoiceModalComponent],
+  declarations: [AppComponent, NavigationComponent, InvoiceModalComponent, LoadingComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

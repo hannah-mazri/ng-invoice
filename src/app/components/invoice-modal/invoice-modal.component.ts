@@ -152,6 +152,7 @@ export class InvoiceModalComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
     this.calInvoiceTotal();
 
     const database = db.collection('invoices').doc();
@@ -176,6 +177,7 @@ export class InvoiceModalComponent implements OnInit {
       invoiceTotal: this.invoiceForm.value.invoiceTotal,
     });
 
+    this.loading = false;
     this.closeInvoice();
   }
 

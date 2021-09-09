@@ -4,6 +4,7 @@
     (ngSubmit)="onSubmit()"
     class="invoice-content"
   >
+    <app-loading *ngIf="loading"></app-loading>
     <h1>New Invoice</h1>
 
     <!-- Bill From -->
