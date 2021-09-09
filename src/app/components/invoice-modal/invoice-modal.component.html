@@ -1,5 +1,9 @@
 <div class="invoice-wrap flex flex-column">
-  <form [formGroup]="invoiceForm" class="invoice-content">
+  <form
+    [formGroup]="invoiceForm"
+    (ngSubmit)="onSubmit()"
+    class="invoice-content"
+  >
     <h1>New Invoice</h1>
 
     <!-- Bill From -->
@@ -126,7 +130,7 @@
           </tr>
           <ng-container
             formArrayName="invoiceItemList"
-            *ngFor="let item of myItems.controls; let i = index"
+            *ngFor="let item of invoiceItems.controls; let i = index"
           >
             <tr class="table-items flex" [formGroupName]="i">
               <td class="item-name">
@@ -138,7 +142,9 @@
               <td class="price">
                 <input type="text" formControlName="price" />
               </td>
-              <td class="total flex">${{ item.value.total }}</td>
+              <td class="total flex">
+                ${{ calItemTotal(item.value.qty, item.value.price, item) }}
+              </td>
               <img
                 (click)="deleteInvoiceItem(i)"
                 src="assets/icon-delete.svg"

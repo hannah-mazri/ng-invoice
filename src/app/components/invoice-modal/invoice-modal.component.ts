@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { uid } from 'uid';
+import db from '../../../firebase/firebaseInit';
 
 interface InvoiceItemList {
   id: string;
@@ -28,6 +29,8 @@ export class InvoiceModalComponent implements OnInit {
   paymentDueDateUnix = 0;
 
   loading = false;
+  invoicePending = false;
+  invoiceDraft = false;
 
   invoiceModal$: Observable<boolean> = this.layoutState.$invoiceModal;
 
@@ -65,8 +68,6 @@ export class InvoiceModalComponent implements OnInit {
       paymentTerms: null,
       paymentDueDate: null,
       productDescription: null,
-      invoicePending: null,
-      invoiceDraft: null,
 
       invoiceItemList: this.fb.array([this.createItem()]),
       invoiceTotal: 0,
@@ -77,7 +78,7 @@ export class InvoiceModalComponent implements OnInit {
     return this.fb.group({
       id: uid(),
       itemName: '',
-      qty: '',
+      qty: 0,
       price: 0,
       total: 0,
     });
@@ -106,18 +107,79 @@ export class InvoiceModalComponent implements OnInit {
   }
 
   addNewInvoiceItem(): void {
-    this.myItems.push(this.createItem());
+    this.invoiceItems.push(this.createItem());
   }
 
   deleteInvoiceItem(i: number) {
-    this.myItems.removeAt(i);
+    this.invoiceItems.removeAt(i);
   }
 
   prt(item: any, i: number) {
-    console.log('Exposed item name:', this.myItems.controls[i].value.total);
+    console.log(
+      'Exposed item name:',
+      this.invoiceItems.controls[i].value.total
+    );
   }
 
-  get myItems() {
+  get invoiceItems() {
     return <FormArray>this.invoiceForm.get('invoiceItemList');
+  }
+
+  calItemTotal(qty: number, price: number, item: any) {
+    item.value.total = qty * price;
+    return item.value.total;
+  }
+
+  calInvoiceTotal() {
+    this.invoiceForm.value.invoiceTotal = 0;
+
+    this.invoiceItems.value.forEach((item: any) => {
+      this.invoiceForm.value.invoiceTotal += item.total;
+    });
+  }
+
+  publishInvoice() {
+    this.invoicePending = true;
+  }
+
+  saveDraft() {
+    this.invoiceDraft = true;
+  }
+
+  async uploadInvoice() {
+    if (this.invoiceItems.controls.length <= 0) {
+      alert('Please ensure you filled out work items!');
+      return;
+    }
+
+    this.calInvoiceTotal();
+
+    const database = db.collection('invoices').doc();
+
+    await database.set({
+      invoiceId: uid(6),
+      billerStreetAddress: this.invoiceForm.value.billerStreetAddress,
+      billerCity: this.invoiceForm.value.billerCity,
+      billerZipCode: this.invoiceForm.value.billerZipCode,
+      billerCountry: this.invoiceForm.value.billerCountry,
+      clientName: this.invoiceForm.value.clientName,
+      clientEmail: this.invoiceForm.value.clientEmail,
+      clientStreetAddress: this.invoiceForm.value.clientStreetAddress,
+      clientCity: this.invoiceForm.value.clientCity,
+      clientZipCode: this.invoiceForm.value.clientZipCode,
+      clientCountry: this.invoiceForm.value.clientCountry,
+      invoiceDate: this.invoiceForm.value.invoiceDate,
+      paymentTerms: this.invoiceForm.value.paymentTerms,
+      paymentDueDate: this.invoiceForm.value.paymentDueDate,
+      productDescription: this.invoiceForm.value.productDescription,
+      invoiceItemList: this.invoiceForm.value.invoiceItemList,
+      invoiceTotal: this.invoiceForm.value.invoiceTotal,
+    });
+
+    this.closeInvoice();
+  }
+
+  onSubmit() {
+    this.uploadInvoice();
   }
 }
