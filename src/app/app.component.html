@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="invoicesLoaded$ | async">
   <div *ngIf="!mobile" class="app flex flex-column">
     <app-navigation></app-navigation>
     <div class="app-content flex flex-column">
