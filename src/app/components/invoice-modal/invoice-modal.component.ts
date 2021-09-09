@@ -1,5 +1,5 @@
 import { LayoutStateService } from './../../services/layout-state.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -23,6 +23,7 @@ interface InvoiceItemList {
   styleUrls: ['./invoice-modal.component.scss'],
 })
 export class InvoiceModalComponent implements OnInit {
+  @ViewChild('invoiceWrapRef') invoiceWrapRef: any;
   invoiceForm!: FormGroup;
   invoiceItemList!: FormArray;
   invoiceDateUnix = Date.now();
@@ -183,5 +184,11 @@ export class InvoiceModalComponent implements OnInit {
 
   onSubmit() {
     this.uploadInvoice();
+  }
+
+  checkClick(event: any) {
+    if (event.target === this.invoiceWrapRef.nativeElement) {
+      this.layoutState.toggleModal();
+    }
   }
 }

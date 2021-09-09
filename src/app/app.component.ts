@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 export class AppComponent {
   mobile: any = null;
   invoiceModal$: Observable<boolean> = this.layoutState.$invoiceModal;
+  modalActive$: Observable<boolean> = this.layoutState.$modalActive;
 
   constructor(private layoutState: LayoutStateService) {}
 

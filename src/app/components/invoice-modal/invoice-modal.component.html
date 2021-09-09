@@ -1,4 +1,8 @@
-<div class="invoice-wrap flex flex-column">
+<div
+  class="invoice-wrap flex flex-column"
+  #invoiceWrapRef
+  (click)="checkClick($event)"
+>
   <form
     [formGroup]="invoiceForm"
     (ngSubmit)="onSubmit()"
