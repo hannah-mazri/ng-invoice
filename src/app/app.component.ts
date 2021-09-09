@@ -35,7 +35,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    const data = this.invoiceState.getInvoices();
-    console.log('get invoices', data);
+    this.invoiceState.getInvoices();
   }
 }
