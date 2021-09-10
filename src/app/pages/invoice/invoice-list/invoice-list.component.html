@@ -1,4 +1,16 @@
-<app-invoice-preview
-  *ngFor="let invoice of invoiceData$ | async"
-  [invoice]="invoice"
-></app-invoice-preview>
+<div *ngIf="invoiceData$ | async; else noInvoiceData">
+  <app-invoice-preview
+    *ngFor="let invoice of invoiceData$ | async"
+    [invoice]="invoice"
+  ></app-invoice-preview>
+</div>
+<ng-template #noInvoiceData>
+  <div class="empty flex flex-column">
+    <img src="assets/illustration-empty.svg" alt="" />
+
+    <h3>There is nothing here</h3>
+    <p>
+      Create a new invoice by clicking the New Invoice button and get started
+    </p>
+  </div>
+</ng-template>
