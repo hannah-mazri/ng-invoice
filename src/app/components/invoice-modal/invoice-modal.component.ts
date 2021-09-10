@@ -176,6 +176,9 @@ export class InvoiceModalComponent implements OnInit {
       productDescription: this.invoiceForm.value.productDescription,
       invoiceItemList: this.invoiceForm.value.invoiceItemList,
       invoiceTotal: this.invoiceForm.value.invoiceTotal,
+      invoicePending: this.invoicePending,
+      invoiceDraft: this.invoiceDraft,
+      invoicePaid: null,
     });
 
     this.loading = false;
