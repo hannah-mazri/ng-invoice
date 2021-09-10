@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import db from '../../firebase/firebaseInit';
 import { StateService } from '../shared/state.service';
 
-interface InvoiceData {
+export interface InvoiceData {
   docId: string;
   invoiceId: string;
   billerStreetAddress: string;
@@ -43,7 +43,9 @@ const initialState: InvoiceState = {
   providedIn: 'root',
 })
 export class InvoiceStateService extends StateService<InvoiceState> {
-  $invoiceData: Observable<any> = this.select((state) => state.invoiceData);
+  $invoiceData: Observable<InvoiceData[]> = this.select(
+    (state) => state.invoiceData
+  );
   $invoicesLoaded: Observable<boolean> = this.select(
     (state) => state.invoicesLoaded
   );

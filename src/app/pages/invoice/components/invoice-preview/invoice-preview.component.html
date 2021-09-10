@@ -1,0 +1,25 @@
+<a [routerLink]="['invoice', invoice.invoiceId]" class="invoice flex">
+  <div class="left flex">
+    <span class="tracking-number">{{ invoice.invoiceId }}</span>
+    <span class="due-date">{{ invoice.paymentDueDate }}</span>
+    <span class="person">{{ invoice.clientName }}</span>
+  </div>
+  <div class="right flex">
+    <span class="price">${{ invoice.invoiceTotal }}</span>
+    <div
+      class="status-button flex"
+      [ngClass]="{
+        paid: invoice.invoicePaid,
+        draft: invoice.invoiceDraft,
+        pending: invoice.invoicePending
+      }"
+    >
+      <span *ngIf="invoice.invoicePaid">Paid</span>
+      <span *ngIf="invoice.invoiceDraft">Draft</span>
+      <span *ngIf="invoice.invoicePending">Pending</span>
+    </div>
+    <div class="icon">
+      <img src="assets/icon-arrow-right.svg" alt="" />
+    </div>
+  </div>
+</a>

@@ -6,6 +6,14 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    children: [
+      {
+        path: 'invoice',
+        pathMatch: 'full',
+        loadChildren: () =>
+          import('../invoice/invoice.module').then((m) => m.InvoiceModule),
+      },
+    ],
   },
 ];
 
