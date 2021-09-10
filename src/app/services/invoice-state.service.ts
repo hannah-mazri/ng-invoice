@@ -137,7 +137,7 @@ export class InvoiceStateService extends StateService<InvoiceState> {
   getCurrentInvoice(payload: string) {
     this.state.currentInvoiceArray = this.state.invoiceData.filter(
       (invoice) => {
-        return (invoice.invoiceId = payload);
+        return invoice.invoiceId === payload;
       }
     );
 
