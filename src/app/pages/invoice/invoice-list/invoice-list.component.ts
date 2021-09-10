@@ -1,3 +1,4 @@
+import { LayoutStateService } from './../../../services/layout-state.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
@@ -11,10 +12,22 @@ import {
   styleUrls: ['./invoice-list.component.scss'],
 })
 export class InvoiceListComponent implements OnInit {
+  filterMenu = false;
   invoiceData$: Observable<InvoiceData[]> = this.invoiceState.$invoiceData;
-  constructor(private invoiceState: InvoiceStateService) {}
+  constructor(
+    private layoutState: LayoutStateService,
+    private invoiceState: InvoiceStateService
+  ) {}
 
   ngOnInit(): void {
     this.invoiceState.getInvoices();
+  }
+
+  newInvoice() {
+    this.layoutState.toggleInvoice();
+  }
+
+  toggleFilterMenu() {
+    this.filterMenu = !this.filterMenu;
   }
 }

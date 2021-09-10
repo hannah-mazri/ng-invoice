@@ -32,11 +32,39 @@ export interface InvoiceData {
 interface InvoiceState {
   invoiceData: InvoiceData[];
   invoicesLoaded: false;
+  currentInvoiceArray: InvoiceData[];
+  currentInvoice: InvoiceData;
 }
 
 const initialState: InvoiceState = {
   invoiceData: [],
   invoicesLoaded: false,
+  currentInvoiceArray: [],
+  currentInvoice: {
+    docId: '',
+    invoiceId: '',
+    billerStreetAddress: '',
+    billerCity: '',
+    billerZipCode: '',
+    billerCountry: '',
+    clientName: '',
+    clientEmail: '',
+    clientStreetAddress: '',
+    clientCity: '',
+    clientZipCode: '',
+    clientCountry: '',
+    invoiceDateUnix: '',
+    invoiceDate: '',
+    paymentTerms: '',
+    paymentDueDateUnix: '',
+    paymentDueDate: '',
+    productDescription: '',
+    invoiceItemList: '',
+    invoiceTotal: '',
+    invoicePending: '',
+    invoiceDraft: '',
+    invoicePaid: '',
+  },
 };
 
 @Injectable({
@@ -48,6 +76,9 @@ export class InvoiceStateService extends StateService<InvoiceState> {
   );
   $invoicesLoaded: Observable<boolean> = this.select(
     (state) => state.invoicesLoaded
+  );
+  $currentInvoice: Observable<InvoiceData> = this.select(
+    (state) => state.currentInvoice
   );
 
   constructor() {
@@ -101,5 +132,15 @@ export class InvoiceStateService extends StateService<InvoiceState> {
 
   loadInvoices(payload: any) {
     this.setState({ invoicesLoaded: payload });
+  }
+
+  getCurrentInvoice(payload: string) {
+    this.state.currentInvoiceArray = this.state.invoiceData.filter(
+      (invoice) => {
+        return (invoice.invoiceId = payload);
+      }
+    );
+
+    this.setState({ currentInvoice: this.state.currentInvoiceArray[0] });
   }
 }

@@ -8,22 +8,13 @@ import { Observable } from 'rxjs';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  filterMenu = false;
   invoiceModal$: Observable<boolean> = this.layoutState.$invoiceModal;
 
   constructor(private layoutState: LayoutStateService) {}
 
   ngOnInit(): void {}
 
-  newInvoice() {
-    this.layoutState.toggleInvoice();
-  }
-
   closeInvoice() {
     this.layoutState.toggleInvoice();
-  }
-
-  toggleFilterMenu() {
-    this.filterMenu = !this.filterMenu;
   }
 }
